@@ -1,14 +1,14 @@
 <template>
   <HeaderPage />
-  <h1>Hello {{name}}, welcome to the homepage</h1>
+  <h1>Hello {{name}}, welcome to the Update Restaurant page</h1>
 </template>
 
 
 <script>
-import HeaderPage from './HeaderPage.vue'
+import HeaderPage from './HeaderPage.vue';
 
 export default {
-  name: 'HomePage',
+  name: 'UpdateRestaurant',
   data() {
     return {
       name: '',
@@ -21,7 +21,7 @@ export default {
     let user = localStorage.getItem('user-info');
     this.name = JSON.parse(user).name
     if(!user) {
-      this.$router.push({name:'SignUp'})
+      this.$router.push({name: 'SignUp'})
     }
   }
 }
