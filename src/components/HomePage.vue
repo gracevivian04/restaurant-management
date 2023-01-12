@@ -1,8 +1,8 @@
 <template>
   <HeaderPage />
   <h1>Hello {{name}}, welcome to the homepage</h1>
-  <table border="1">
-    <tr>
+  <table>
+    <tr class="title">
       <td>
         Id
       </td>
@@ -14,6 +14,9 @@
       </td>
       <td>
         Address
+      </td>
+      <td>
+        Update
       </td>
     </tr>
     <tr v-for="item in restaurant" :key="item.id">
@@ -28,6 +31,11 @@
       </td>
       <td>
         {{ item.address }}
+      </td>
+      <td>
+        <router-link class="update" :to="'/update/' + item.id">
+          Update
+        </router-link>
       </td>
     </tr>
   </table>
@@ -64,11 +72,33 @@ export default {
 </script>
 
 <style>
-
-td {
-  width: 160px;
-  height: 40px;
-  
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid darkseagreen;
 }
 
+td {
+  width: 260px;
+  height: 40px;
+
+}
+
+tr:hover {
+  background-color: rgb(217, 236, 217);
+}
+
+.title {
+  font-weight: bolder;
+}
+
+.update {
+  text-decoration: none;
+  color: darkseagreen;
+}
+
+.update:hover {
+  font-weight:bolder;
+  color: #2c3e50;
+}
 </style>
