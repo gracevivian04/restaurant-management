@@ -27,7 +27,7 @@ body {
   width: 200px;
 }
 
-.register input {
+.register input .add-form input{
   width: 300px;
   height: 40px;
   padding-left: 20px;
@@ -39,7 +39,7 @@ body {
   border-radius: 5px;
 }
 
-.register button {
+.register button .add-form button {
   width: 325px;
   height: 40px;
   border: 2px solid darkseagreen;
