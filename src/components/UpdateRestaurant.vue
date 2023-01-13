@@ -12,6 +12,7 @@
 
 <script>
 import HeaderPage from './HeaderPage.vue';
+import axios from 'axios';
 
 export default {
   name: 'UpdateRestaurant',
@@ -29,16 +30,27 @@ export default {
     HeaderPage,
   },
   methods: {
-    updateRestaurant() {
-
+    async updateRestaurant() {
+      console.warn(this.restaurant)
+      const result = axios.put('http://localhost:3000/restaurant', + this.$route.params.id, {
+        name: this.restaurant.name,
+        contact: this.restaurant.contact,
+        address: this.restaurant.address
+      });
+      if(result.status == 200) {
+        this.$router.push({name:"HomePage"})
+      }
     }
   },
-  mounted() {
+  async mounted() {
     let user = localStorage.getItem('user-info');
     this.name = JSON.parse(user).name
     if(!user) {
       this.$router.push({name: 'SignUp'})
     }
+    const result = await axios.get('http://localhost:3000/restaurant' + this.$route.params.id)
+    console.warn(result.data)
+    this.restaurant =  result.data
   }
 }
 

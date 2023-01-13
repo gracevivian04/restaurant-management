@@ -16,7 +16,7 @@
         Address
       </td>
       <td>
-        Update
+        Options
       </td>
     </tr>
     <tr v-for="item in restaurant" :key="item.id">
@@ -36,6 +36,7 @@
         <router-link class="update" :to="'/update/' + item.id">
           Update
         </router-link>
+        <button class="btn" v-on:click="deleteRestaurant">Delete</button>
       </td>
     </tr>
   </table>
@@ -57,8 +58,16 @@ export default {
   components: {
     HeaderPage,
   },
-  async mounted() {
-    let user = localStorage.getItem('user-info');
+  methods: {
+    async deleteRestaurant(id) {
+      let result = await axios.delete('http://localhost:3000/restaurant' + id)
+      console.warn('restaurant deleted', result.status)
+      if(result.status == 200) {
+        this.loadData();
+      }
+    },
+    async loadData() {
+      let user = localStorage.getItem('user-info');
     this.name = JSON.parse(user).name
     if(!user) {
       this.$router.push({name:'SignUp'})
@@ -66,6 +75,10 @@ export default {
     let result = await axios.get('http://localhost:3000/restaurant');
     //console.warn(result)
     this.restaurant = result.data;
+    }
+  },
+  async mounted() {
+    this.loadData();
   }
 }
 
@@ -79,7 +92,7 @@ table {
 }
 
 td {
-  width: 260px;
+  width: 200px;
   height: 40px;
 
 }
@@ -95,9 +108,27 @@ tr:hover {
 .update {
   text-decoration: none;
   color: darkseagreen;
+  background-color: #fff;
+  padding: 1px;
 }
 
 .update:hover {
+  font-weight:bolder;
+  background-color: rgb(217, 236, 217);
+  color: #2c3e50;
+}
+
+.btn {
+  color: darkseagreen;
+  background-color: #fff;
+  border: none;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color:  rgb(217, 236, 217);
   font-weight:bolder;
   color: #2c3e50;
 }
